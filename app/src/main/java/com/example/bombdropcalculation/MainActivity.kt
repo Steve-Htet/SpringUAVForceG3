@@ -3,13 +3,21 @@ package com.example.bombdropcalculation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.VectorConverter
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.bombdropcalculation.ui.theme.BombDropCalculationTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,9 +26,54 @@ class MainActivity : ComponentActivity() {
         setContent {
             BombDropCalculationTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    BombDropCalculator()
+                    BombDropApp()
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun BombDropApp() {
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        // Background image
+        Image(
+            painter = painterResource(id = R.drawable.background), // Replace with your logo
+            contentDescription = null,
+            modifier = Modifier.wrapContentSize(),
+            contentScale = ContentScale.Crop
+        )
+
+        // Content overlay
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            // Title
+            Text(
+                text = "Spring UAV Force G-3",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Yellow
+            )
+
+            // Subtitle
+            Text(
+                text = "Bomb Drop Calculation",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Medium,
+                color = Color.Yellow
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Calculator
+            BombDropCalculator()
         }
     }
 }
@@ -34,8 +87,8 @@ fun BombDropCalculator() {
 
     Column(
         modifier = Modifier
-            .padding(16.dp)
-            .fillMaxSize(),
+            .fillMaxWidth()
+            .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         OutlinedTextField(
@@ -74,6 +127,8 @@ fun BombDropCalculator() {
         Text(
             text = result,
             style = MaterialTheme.typography.bodyLarge,
+            fontWeight = FontWeight.Bold,
+            color = Color.Red,
             modifier = Modifier.padding(top = 16.dp)
         )
     }
